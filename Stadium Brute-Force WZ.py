@@ -1,5 +1,5 @@
 def check_room(code):
-    
+   
     assert len(code)==8
 
     room=""
@@ -33,7 +33,7 @@ def check_room(code):
 def skip_check(c1,c2):
 
     room1,room2,skip,c,n,h="","",False,0,0,0
-    
+   
     for i in c1:
         if i=="c":
             c=c+1
@@ -81,17 +81,59 @@ def skip_check(c1,c2):
     return skip
 
 
+def print_list(lis):
+    
+    lim=len(lis)
+    ind_stk=0
+
+    for cpt in range(lim):
+
+        x=cpt
+        ind_stk=cpt
+        stk=lis[cpt]
+
+        for i in lis[cpt:]:
+
+            if int(i)<int(stk):
+
+                ind_stk=x
+                stk=i
+                
+            x=x+1
+
+        tamp=lis[cpt]
+        lis[cpt]=lis[ind_stk]
+        lis[ind_stk]=tamp
+
+    cpt=0
+
+    while lim>cpt:
+        for i in range(6): 
+            
+            print()
+            print("  " + lis[cpt][:4] + " " + lis[cpt][-4:])
+                
+            cpt=cpt+1
+
+        input()
+        print()
+        print()
+        print() 
+        
+    print(lim, "combinations")
+
+
 
 
 def china_room(code):
 
     print()
     print("LUCKY CODE! EASY TO BRUTE-FORCE")
-    
+   
     num=["0","1","2","3","4","5","6","7","8","9"]
     lis_h=""
-    x=0
-    
+    lis=[]
+   
     for i in num:
         found=False
         for f in code:
@@ -105,12 +147,12 @@ def china_room(code):
         for i in lis_h:
             if i!=h:
                 lis_n=lis_n+i
-                
+               
         for n in lis_n:
-            cpt=0
+            
             comb=""
             for i in code:
-                
+               
                 if i.isdigit():
                     comb=comb+i
                 elif i.isalpha:
@@ -118,29 +160,19 @@ def china_room(code):
                         comb=comb+h
                     elif i=="n":
                         comb=comb+n
-                        
-                cpt=cpt+1
-                if cpt==4:
-                    comb=comb+" "
-            print()
-            print("  ",comb)
-            x=x+1
 
-        lol=input("")
-        print()
-        print()
-        print()
-    print(x, "combinations")
-                    
+            lis.append(comb)
                 
-              
+    print_list(lis)
+                   
+               
+             
 def nose_room(code):
 
- 
-    x=0
     num=["0","1","2","3","4","5","6","7","8","9"]
     lis_n=""
     lis_c=""
+    lis=[]
 
     for i in code:
         if i.isdigit():
@@ -158,16 +190,16 @@ def nose_room(code):
 
         for c in lis_c:
             lis_h=""
-            
+           
             for i in lis_c:
                 if i!=c:
                     lis_h=lis_h+i
-          
+         
             for h in lis_h:
-                cpt=0
+        
                 comb=""
                 for i in code:
-                    
+                   
                     if i.isdigit():
                         comb=comb+i
                     elif i.isalpha:
@@ -177,29 +209,19 @@ def nose_room(code):
                             comb=comb+n
                         elif i=="h":
                             comb=comb+h
-                            
-                    cpt=cpt+1
-                    if cpt==4:
-                        comb=comb+" "
-                print()
-                print("  ",comb)
-                x=x+1
+                           
+                lis.append(comb)
 
-            input()
-        print()
-        print()
-        print()
-        
-    print(x, "combinations")
+    print_list(lis)
 
 
 
 def house_room(code):
 
-    x=0
     num=["0","1","2","3","4","5","6","7","8","9"]
     lis_h=""
     lis_c=""
+    lis=[]
 
     for i in code:
         if i.isdigit():
@@ -213,21 +235,21 @@ def house_room(code):
             if not found:
                 lis_c=lis_c+str(i)
 
-            
+           
     for h in lis_h:
 
         for c in lis_c:
             lis_n=""
-            
+           
             for i in lis_c:
                 if i!=c:
                     lis_n=lis_n+i
-          
+         
             for n in lis_n:
-                cpt=0
+            
                 comb=""
                 for i in code:
-                    
+                   
                     if i.isdigit():
                         comb=comb+i
                     elif i.isalpha:
@@ -237,22 +259,11 @@ def house_room(code):
                             comb=comb+n
                         elif i=="h":
                             comb=comb+h
-                            
-                    cpt=cpt+1
-                    if cpt==4:
-                        comb=comb+" "
-                print()
-                print("  ",comb)
-                x=x+1
+                           
+                lis.append(comb)
 
-            input()
-        print()
-        print()
-        print()
-        
-    print(x, "combinations")
-        
-
+    print_list(lis)
+       
 
 
 def code1(c1):
@@ -266,7 +277,7 @@ def code1(c1):
 
     elif room=="house":
         house_room(c1)
-    
+   
 
 
 
@@ -302,7 +313,7 @@ def code2(c1,c2):
 
     if n==-1:
         stk="n"
-        
+       
     if h==-1:
         stk="h"
 
@@ -312,16 +323,16 @@ def code2(c1,c2):
         if i.isdigit():
             code=code+i
         elif i.isalpha():
-            
+           
             if i=="c" and c>-1:
                 code=code+str(c)
-                
+               
             elif i=="n" and n>-1:
                 code=code+str(n)
-                
+               
             elif i=="h" and h>-1:
                 code=code+str(h)
-                
+               
             else:
                 code=code+i
 
@@ -340,43 +351,30 @@ def code2(c1,c2):
     for i in lis:
         bforce_code=""
         cpt=0
-        
+       
         for f in code:
             if f==stk:
                 bforce_code=bforce_code+i
             else:
                 bforce_code=bforce_code+f
-                
+               
             cpt=cpt+1
             if cpt==4:
                 bforce_code=bforce_code+" "
-            
+           
         print()
-        print("  ",bforce_code)
+        print(bforce_code)
 
-        
+       
 
 c1=input("code 1: ")
 c2=input("code 2: ")
-numb=""
 
 if skip_check(c1,c2):
-    numb="2"
-
-if c2=="":
-    numb="1"
-
-while numb!="1" and numb !="2":
-    numb=input("Indicate if 1 or 2 codes: ")
-    if numb!="1" and numb!="2":
-        print('Invalid, please choose between "1" and "2".')
-
-if numb=="1":
-    code1(c1)
-    
-elif numb=="2":
     code2(c1,c2)
 
+elif c2=="":
+    code1(c1)
     
-    
-
+else:
+    assert 1==0
