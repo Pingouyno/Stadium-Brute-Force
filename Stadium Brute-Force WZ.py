@@ -329,17 +329,14 @@ def code2(c1,c2):
 
        
 
-c1=input("code 1: ")
-c2=input("code 2: ")
+c1=input(("code 1: ")).lower()
+c2=input(("code 2: ")).lower()
 
-
-if skip_check(c1,c2):
-    code2(c1,c2)
-
-elif c2=="":
+if c2=="":
     code1(c1)
+
+elif skip_check(c1,c2):
+    code2(c1,c2)
     
 else:
     assert 1==0
-
-    
