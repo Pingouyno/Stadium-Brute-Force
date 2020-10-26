@@ -32,50 +32,12 @@ def check_room(code):
 
 def skip_check(c1,c2):
 
-    room1,room2,skip,c,n,h="","",False,0,0,0
+    room1,room2,skip="","",False
    
-    for i in c1:
-        if i=="c":
-            c=c+1
+    room1=check_room(c1)
+    room2=check_room(c2)
 
-        elif i=="n":
-            n=n+1
-
-        elif i=="h":
-            h=h+1
-
-    if c==0 and n==3 and h==2:
-        room1="china"
-
-    elif c==1 and n==2 and h==2:
-        room1="nose"
-
-    elif c==1 and n==3 and h==1:
-        room1="house"
-
-    c,n,h=0,0,0
-
-
-    for i in c2:
-        if i=="c":
-            c=c+1
-
-        elif i=="n":
-            n=n+1
-
-        elif i=="h":
-            h=h+1
-
-    if c==0 and n==3 and h==2:
-        room2="china"
-
-    elif c==1 and n==2 and h==2:
-        room2="nose"
-
-    elif c==1 and n==3 and h==1:
-        room2="house"
-
-    if room1!="" and room2!="" and room1!=room2:
+    if room1!=room2:
         skip=True
 
     return skip
@@ -370,6 +332,7 @@ def code2(c1,c2):
 c1=input("code 1: ")
 c2=input("code 2: ")
 
+
 if skip_check(c1,c2):
     code2(c1,c2)
 
@@ -378,3 +341,5 @@ elif c2=="":
     
 else:
     assert 1==0
+
+    
