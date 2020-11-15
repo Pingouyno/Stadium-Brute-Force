@@ -1,12 +1,23 @@
 def check_room(code):
-   
-    assert len(code)==8
-
+    
     room=""
     c=0
     n=0
     h=0
+    valid=False
+    dgt_lis=[]
+    dgt_cpt=0
+    
     for i in code:
+
+        if not i.isdigit() and i!="c" and i!="n" and i!="h":
+            c,n=0,0
+            break
+        
+        if i.isdigit():
+            dgt_lis.append(i)
+
+        
         if i=="c":
             c=c+1
 
@@ -25,9 +36,19 @@ def check_room(code):
     elif c==1 and n==3 and h==1:
         room="house"
 
-    assert room=="china" or room=="nose" or room=="house"
+    if room=="china" or room=="nose" or room=="house":
+        valid=True
 
-    return room
+    if len(code)!=8:valid=False
+
+    for i in dgt_lis:
+        for f in dgt_lis:
+            if f==i:
+                dgt_cpt+=1
+                
+    if dgt_cpt>3:valid=False
+
+    return (room,valid)
 
 
 def skip_check(c1,c2):
@@ -37,8 +58,21 @@ def skip_check(c1,c2):
     room1=check_room(c1)
     room2=check_room(c2)
 
-    if room1!=room2:
+    if room1[0]!=room2[0] and room1[1]==room2[1]==True:
         skip=True
+
+    for i in range(8):
+
+        char1=c1[i]
+        char2=c2[i]
+        
+        if char1.isalpha() and char2.isalpha() and char1!=char2:
+            skip=False
+            break
+        
+        elif char1.isdigit() and char2.isdigit() and char1!=char2:
+            skip=False
+            break
 
     return skip
 
@@ -80,9 +114,7 @@ def print_list(lis):
         input()
         print()
         print()
-        print() 
-        
-    print(lim, "combinations")
+        print()
 
 
 
@@ -126,6 +158,8 @@ def china_room(code):
             lis.append(comb)
                 
     print_list(lis)
+
+    print("42 combinations")
                    
                
              
@@ -149,6 +183,8 @@ def nose_room(code):
                 lis_c=lis_c+str(i)
 
     for n in lis_n:
+
+        lis=[]
 
         for c in lis_c:
             lis_h=""
@@ -174,7 +210,9 @@ def nose_room(code):
                            
                 lis.append(comb)
 
-    print_list(lis)
+        print_list(lis)
+
+    print("126 combinations")
 
 
 
@@ -200,6 +238,8 @@ def house_room(code):
            
     for h in lis_h:
 
+        lis=[]
+
         for c in lis_c:
             lis_n=""
            
@@ -224,12 +264,14 @@ def house_room(code):
                            
                 lis.append(comb)
 
-    print_list(lis)
+        print_list(lis)
+
+    print("126 combinations")
        
 
 
 def code1(c1):
-    room=check_room(c1)
+    room=check_room(c1)[0]
 
     if room=="china":
         china_room(c1)
@@ -240,8 +282,6 @@ def code1(c1):
     elif room=="house":
         house_room(c1)
    
-
-
 
 
 def code2(c1,c2):
@@ -327,16 +367,24 @@ def code2(c1,c2):
         print()
         print(bforce_code)
 
-       
-
-c1=input(("code 1: ")).lower()
-c2=input(("code 2: ")).lower()
-
-if c2=="":
-    code1(c1)
-
-elif skip_check(c1,c2):
-    code2(c1,c2)
+valid=False
+     
+while not valid:
     
-else:
-    assert 1==0
+    c1=input(("code 1: ")).lower()
+    c2=input(("code 2: ")).lower()
+
+    if c2=="":
+        if check_room(c1)[1]:
+            valid=True
+            code1(c1)
+
+    elif skip_check(c1,c2):
+        valid=True
+        code2(c1,c2)
+
+    if not valid:
+        print()
+        print("INVALID CODE(S). TRY AGAIN.")
+        print()
+
