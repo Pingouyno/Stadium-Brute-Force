@@ -1,4 +1,4 @@
-DESCRIPTION : This python program serves as a macro to brute-force the Stadium locked room for its user. It can input a combination in 0.2 seconds. The program can be started, paused, resumed and ended at will.
+DESCRIPTION : This program can generate combinations to crack the Stadium's Easter Egg room with 1 or 2 codes.
 
 
 HOW TO USE : Input 1 or 2 codes, with the symbols as "C" (China), "N" (Nose) or "H" (House).
